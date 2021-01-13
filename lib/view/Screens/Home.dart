@@ -4,11 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movie/view%20model/LastMovies/MovieBloc.dart';
+import 'package:movie/view%20model/LastMovies/PostStates.dart';
 import 'package:movie/view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
 import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
-import 'package:movie/view%20model/Posts/MovieBloc.dart';
-import 'package:movie/view%20model/Posts/PostEvent.dart';
-import 'package:movie/view%20model/Posts/PostStates.dart';
 import 'package:movie/view%20model/utils/SharedPreferences.dart';
 import 'package:movie/view/Widgets/Moviecard.dart';
 import 'package:toast/toast.dart';
@@ -17,14 +16,14 @@ import 'SavedMovies.dart';
 import 'TrendingMovie.dart';
 import 'login.dart';
 
-class Home extends StatefulWidget {
-  @override
+class Home extends StatelessWidget {
+  /*@override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return v();
   }
 }
-class v extends State<Home>{
+class v extends State<Home>{*/
 
   MovieBloc bloc;
   UIBloc cb;
@@ -157,7 +156,7 @@ class v extends State<Home>{
           child: Container(
         alignment: Alignment.center,
         child: BlocBuilder<MovieBloc, PostStates>(builder: (context, state) {
-          if (state is InitialState) {
+          if (state is PostInitialState) {
             return Center(child: CircularProgressIndicator());
           } else if (state is LoadingState) {
             return Center(child: CircularProgressIndicator());
@@ -291,7 +290,6 @@ class v extends State<Home>{
 //     // TODO: implement initState
 //     super.initState();
 //   bloc = BlocProvider.of<MovieBloc>(context);
-//   bloc.add(DoFetchEvents());
-
+//   bloc.add(DoFetchEvents("movie/popular"));
 // }
 }

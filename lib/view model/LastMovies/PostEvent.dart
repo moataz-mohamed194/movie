@@ -6,4 +6,9 @@ class PostEvents extends Equatable{
   List<Object> get props => [];
 
 }
-class DoFetchEvents extends PostEvents{}
+class DoFetchEvents extends PostEvents{
+  final String cityName;
+  DoFetchEvents(this.cityName);
+  @override
+  List<Object> get props => [cityName];
+}

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:movie/model/Data/Strings.dart';
-import '../models/PostModel.dart';
 import 'package:http/http.dart' as http;
-class PostRepository {
+import 'package:movie/model/models/TrendingModel.dart';
+class TrendingRepository {
   Future<List<Results>> fetchPosts (String part)async{
     var response=await http.get(Strings.mainUrl(part));
     if(response.statusCode==200){
@@ -11,7 +11,7 @@ class PostRepository {
       List<Results> posts;
 
       // posts.clear();
-      posts=MovieModel.fromJson(data).results;
+      posts=TrendingModel.fromJson(data).results;
       print(".........................");
       print(data);
       print(".........................");

@@ -7,10 +7,11 @@ class PostStates extends Equatable{
   List<Object> get props => [];
 
 }
-class InitialState extends PostStates{}
+class PostInitialState extends PostStates{}
 class LoadingState extends PostStates{}
 class FetchSuccess extends PostStates{
-  List<Results> posts;
+
+  List<Results0> posts;
   FetchSuccess({this.posts});
 }
 class ErrorState extends PostStates{
