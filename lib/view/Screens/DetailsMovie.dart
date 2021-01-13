@@ -3,8 +3,13 @@ import 'package:flutter/material.dart';
 
 class DetailsMovie extends StatelessWidget {
   final String nameMovie;
+  final String imageCover;
+  final String imagePoster;
+  final double rate;
+  final String date;
+  final String description;
 
-  const DetailsMovie({Key key, this.nameMovie}) : super(key: key);
+  const DetailsMovie({Key key, this.nameMovie, this.imageCover, this.imagePoster, this.description,this.rate,this.date}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -17,7 +22,7 @@ class DetailsMovie extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                        "http://image.tmdb.org/t/p/w500/srYya1ZlI97Au4jUYAktDe3avyA.jpg",height: 220,width: MediaQuery.of(context).size.width,),
+                        "http://image.tmdb.org/t/p/w500$imageCover",height: 220,width: MediaQuery.of(context).size.width,),
                     Align(
                       heightFactor: 7,
                       alignment: Alignment.bottomCenter,
@@ -54,7 +59,7 @@ class DetailsMovie extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: Image.network(
-                                    "http://image.tmdb.org/t/p/w500/8UlWHLMpgZm9bx6QYh0NFoq67TZ.jpg")),
+                                    "http://image.tmdb.org/t/p/w500$imagePoster")),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,12 +67,12 @@ class DetailsMovie extends StatelessWidget {
                                   Wrap(
                                     children: [
                                       Text(
-                                        "Movie name",
+                                        nameMovie,
                                         style: TextStyle(fontSize: 24),
                                       )
                                     ],
                                   ),
-                                  Text("20-11-2020",
+                                  Text(date,
                                       style: TextStyle(fontSize: 22)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +81,7 @@ class DetailsMovie extends StatelessWidget {
                                         Icons.star,
                                         color: Colors.grey,
                                       ),
-                                      Text("6.9",
+                                      Text("$rate",
                                           style: TextStyle(fontSize: 20)),
                                     ],
                                   )
@@ -101,8 +106,8 @@ class DetailsMovie extends StatelessWidget {
                       ),
                       Wrap(
                         children: [
-                          Text(
-                              "Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
+                          Text(description,
+                              //"Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
                               style: TextStyle(fontSize: 15))
                         ],
                       )

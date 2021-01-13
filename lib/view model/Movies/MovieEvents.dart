@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class PostEvents extends Equatable{
+class MovieEvents extends Equatable{
   @override
   // TODO: implement props
   List<Object> get props => [];
 
 }
-class DoFetchEvents extends PostEvents{
+class DoFetchEvents extends MovieEvents{
   final String cityName;
   DoFetchEvents(this.cityName);
   @override

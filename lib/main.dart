@@ -2,17 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie/model/Repository/LastRepository.dart';
-import 'package:movie/view%20model/LastMovies/PostEvent.dart';
-import 'package:movie/view%20model/LastMovies/PostStates.dart';
-import 'package:movie/view%20model/TrendingMovies/TrendingStates.dart';
+import 'package:movie/model/Repository/MovieRepository.dart';
 import 'package:movie/view%20model/utils/SharedPreferences.dart';
 import 'package:movie/view/Screens/Home.dart';
-import 'model/Repository/TrendingRepository.dart';
-import 'view model/LastMovies/MovieBloc.dart';
 import 'view model/LoginByFaceBookAndGoogle/UI.dart';
-import 'view model/TrendingMovies/TrendingBloc.dart';
-import 'view model/TrendingMovies/TrendingEvent.dart';
+import 'view model/Movies/MovieBloc.dart';
+import 'view model/Movies/MovieEvents.dart';
+import 'view model/Movies/MovieStates.dart';
 import 'view model/Validation/ValidationProvidor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -56,12 +52,10 @@ class MyApp extends StatelessWidget {
               create: (context) => UIBloc(login),
             ),
             BlocProvider<MovieBloc>(
-                create: (context) => MovieBloc(PostInitialState(), LastRepository())..add(DoFetchEvents("movie/popular"))
-            ),
-            BlocProvider<TrendingBloc>(
                 create: (context) =>
-                    TrendingBloc(TrendingInitialState(), TrendingRepository())..add(TrendingDoFetchEvents("trending/tv/day")),
-                ),
+                    MovieBloc(PostInitialState(), MovieRepository())
+                      ..add(DoFetchEvents("movie/popular"))),
+
           ], child: Home() //Home(),
               )),
     );

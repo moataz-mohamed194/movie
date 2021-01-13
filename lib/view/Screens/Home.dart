@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movie/view%20model/LastMovies/MovieBloc.dart';
-import 'package:movie/view%20model/LastMovies/PostStates.dart';
 import 'package:movie/view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
 import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
+import 'package:movie/view%20model/Movies/MovieBloc.dart';
+import 'package:movie/view%20model/Movies/MovieStates.dart';
 import 'package:movie/view%20model/utils/SharedPreferences.dart';
 import 'package:movie/view/Widgets/Moviecard.dart';
 import 'package:toast/toast.dart';
@@ -17,15 +17,6 @@ import 'TrendingMovie.dart';
 import 'login.dart';
 
 class Home extends StatelessWidget {
-  /*@override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return v();
-  }
-}
-class v extends State<Home>{*/
-
-  MovieBloc bloc;
   UIBloc cb;
   @override
   Widget build(BuildContext context) {
@@ -155,7 +146,7 @@ class v extends State<Home>{*/
       body: SingleChildScrollView(
           child: Container(
         alignment: Alignment.center,
-        child: BlocBuilder<MovieBloc, PostStates>(builder: (context, state) {
+        child: BlocBuilder<MovieBloc, MovieStates>(builder: (context, state) {
           if (state is PostInitialState) {
             return Center(child: CircularProgressIndicator());
           } else if (state is LoadingState) {
@@ -177,9 +168,15 @@ class v extends State<Home>{*/
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => DetailsMovie(
-                                          nameMovie: "miss peregrine",
+                                          nameMovie: item.originalTitle,
+                                      date: item.releaseDate,
+                                      description: item.overview,
+                                      imageCover: item.backdropPath,
+                                      imagePoster: item.posterPath,
+                                      rate: item.voteAverage,
                                         )));
                           },
+                         movieId: item.id,
                         ),
                       ))
                   .toList()
@@ -274,22 +271,4 @@ class v extends State<Home>{*/
           );
         });
   }
-
-//   @override
-//   void dispose() {
-// bloc.close();
-//   }
-//   @override
-//   void dispose() {
-//     // TODO: implement dispose
-//     super.dispose();
-//     bloc.close();
-//   }
-// @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//   bloc = BlocProvider.of<MovieBloc>(context);
-//   bloc.add(DoFetchEvents("movie/popular"));
-// }
 }

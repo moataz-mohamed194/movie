@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie/model/models/PostModel.dart';
 
-class PostStates extends Equatable{
+class MovieStates extends Equatable{
   @override
   // TODO: implement props
   List<Object> get props => [];
 
 }
-class PostInitialState extends PostStates{}
-class LoadingState extends PostStates{}
-class FetchSuccess extends PostStates{
+class PostInitialState extends MovieStates{}
+class LoadingState extends MovieStates{}
+class FetchSuccess extends MovieStates{
 
-  List<Results0> posts;
+var posts;
   FetchSuccess({this.posts});
 }
-class ErrorState extends PostStates{
+class ErrorState extends MovieStates{
   String message;
   ErrorState({this.message});
 }
