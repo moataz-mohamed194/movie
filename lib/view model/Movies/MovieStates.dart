@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie/model/models/PostModel.dart';
 
 class MovieStates extends Equatable{
   @override

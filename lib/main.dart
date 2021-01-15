@@ -9,12 +9,18 @@ import 'view model/LoginByFaceBookAndGoogle/UI.dart';
 import 'view model/Movies/MovieBloc.dart';
 import 'view model/Movies/MovieEvents.dart';
 import 'view model/Movies/MovieStates.dart';
+import 'model/Repository/SQLDatabase.dart';
+import 'view model/Sqlite/SqlBloc.dart';
+import 'view model/Sqlite/SqlEvents.dart';
+import 'view model/Sqlite/SqlStates.dart';
 import 'view model/Validation/ValidationProvidor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SQLDatabase.db.initDB();
+
   Constant.prefs = await SharedPreferences.getInstance();
   User data = FirebaseAuth.instance.currentUser;
   if (data != null) {
@@ -55,7 +61,12 @@ class MyApp extends StatelessWidget {
                 create: (context) =>
                     MovieBloc(PostInitialState(), MovieRepository())
                       ..add(DoFetchEvents("movie/popular"))),
-
+            BlocProvider<SqlBloc>(
+              create: (context) => SqlBloc(ButtonInitialState(), SQLDatabase())//..add(IconEven()),
+            ),
+            // BlocProvider<SqlBloc2>(
+            //   create: (context) => SqlBloc2( List)..add(IconEvents2()),
+            // ),
           ], child: Home() //Home(),
               )),
     );

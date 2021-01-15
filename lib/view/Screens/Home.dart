@@ -26,6 +26,7 @@ class Home extends StatelessWidget {
         title: Text("Latest updates"),
       ),
       drawer: Drawer(
+        elevation: 80.0,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -159,10 +160,10 @@ class Home extends StatelessWidget {
                         child: MovieCard(
                           movieImg:
                               "http://image.tmdb.org/t/p/w500${item.posterPath}",
-                          liked: false,
+                          // liked: false,
                           movieName: item.originalTitle,
                           movieRate: "${item.voteAverage}",
-                          releaseDate: "${item.releaseDate}",
+                          releaseDate: "${item.id}",
                           onClick: () {
                             Navigator.push(
                                 context,
@@ -177,6 +178,8 @@ class Home extends StatelessWidget {
                                         )));
                           },
                          movieId: item.id,
+                          movieImgCover: item.backdropPath,
+                          movieOverview: item.overview,
                         ),
                       ))
                   .toList()
