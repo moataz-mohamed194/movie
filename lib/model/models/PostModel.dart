@@ -1,8 +1,8 @@
 class MovieModel {
-  int page;
+  num page;
   List<Results0> results;
-  int totalPages;
-  int totalResults;
+  num totalPages;
+  num totalResults;
 
   MovieModel({this.page, this.results, this.totalPages, this.totalResults});
 
@@ -33,39 +33,39 @@ class MovieModel {
 class Results0 {
   bool adult;
   String backdropPath;
-  List<int> genreIds;
-  int id;
+  List<num> genreIds;
+  num id;
   String originalLanguage;
   String originalTitle;
   String overview;
-  double popularity;
+  num popularity;
   String posterPath;
   String releaseDate;
   String title;
   bool video;
-  double voteAverage;
-  int voteCount;
+  num voteAverage;
+  num voteCount;
 
   Results0(
       {this.adult,
-        this.backdropPath,
-        this.genreIds,
-        this.id,
-        this.originalLanguage,
-        this.originalTitle,
-        this.overview,
-        this.popularity,
-        this.posterPath,
-        this.releaseDate,
-        this.title,
-        this.video,
-        this.voteAverage,
-        this.voteCount});
+      this.backdropPath,
+      this.genreIds,
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.voteCount});
 
   Results0.fromJson(Map<String, dynamic> json) {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
-    genreIds = json['genre_ids'].cast<int>();
+    genreIds = json['genre_ids'].cast<num>();
     id = json['id'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];

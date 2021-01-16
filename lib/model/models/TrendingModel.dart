@@ -1,8 +1,8 @@
 class TrendingModel {
-  int page;
+  num page;
   List<Results> results;
-  int totalPages;
-  int totalResults;
+  num totalPages;
+  num totalResults;
 
   TrendingModel({this.page, this.results, this.totalPages, this.totalResults});
 
@@ -32,42 +32,42 @@ class TrendingModel {
 
 class Results {
   String overview;
-  int voteCount;
+  num voteCount;
   String backdropPath;
-  int id;
-  List<int> genreIds;
+  num id;
+  List<num> genreIds;
   List<String> originCountry;
   String originalLanguage;
-  double voteAverage;
+  num voteAverage;
   String posterPath;
   String firstAirDate;
   String originalName;
   String name;
-  double popularity;
+  num popularity;
   String mediaType;
 
   Results(
       {this.overview,
-        this.voteCount,
-        this.backdropPath,
-        this.id,
-        this.genreIds,
-        this.originCountry,
-        this.originalLanguage,
-        this.voteAverage,
-        this.posterPath,
-        this.firstAirDate,
-        this.originalName,
-        this.name,
-        this.popularity,
-        this.mediaType});
+      this.voteCount,
+      this.backdropPath,
+      this.id,
+      this.genreIds,
+      this.originCountry,
+      this.originalLanguage,
+      this.voteAverage,
+      this.posterPath,
+      this.firstAirDate,
+      this.originalName,
+      this.name,
+      this.popularity,
+      this.mediaType});
 
   Results.fromJson(Map<String, dynamic> json) {
     overview = json['overview'];
     voteCount = json['vote_count'];
     backdropPath = json['backdrop_path'];
     id = json['id'];
-    genreIds = json['genre_ids'].cast<int>();
+    genreIds = json['genre_ids'].cast<num>();
     originCountry = json['origin_country'].cast<String>();
     originalLanguage = json['original_language'];
     voteAverage = json['vote_average'];

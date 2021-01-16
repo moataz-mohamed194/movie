@@ -9,10 +9,17 @@ class DetailsMovie extends StatelessWidget {
   final String date;
   final String description;
 
-  const DetailsMovie({Key key, this.nameMovie, this.imageCover, this.imagePoster, this.description,this.rate,this.date}) : super(key: key);
+  const DetailsMovie(
+      {Key key,
+      this.nameMovie,
+      this.imageCover,
+      this.imagePoster,
+      this.description,
+      this.rate,
+      this.date})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -22,7 +29,10 @@ class DetailsMovie extends StatelessWidget {
                 Stack(
                   children: [
                     Image.network(
-                        "http://image.tmdb.org/t/p/w500$imageCover",height: 220,width: MediaQuery.of(context).size.width,),
+                      "http://image.tmdb.org/t/p/w500$imageCover",
+                      height: 220,
+                      width: MediaQuery.of(context).size.width,
+                    ),
                     Align(
                       heightFactor: 7,
                       alignment: Alignment.bottomCenter,
@@ -72,8 +82,7 @@ class DetailsMovie extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  Text(date,
-                                      style: TextStyle(fontSize: 22)),
+                                  Text(date, style: TextStyle(fontSize: 22)),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

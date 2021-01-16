@@ -1,21 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum counterEvent { add, remove }
+enum CounterEvent { add, remove }
 
-class UIBloc extends Bloc<counterEvent, bool> {
+class UIBloc extends Bloc<CounterEvent, bool> {
   UIBloc(bool initialState) : super(initialState);
+
   @override
-  bool get initialState => false;
-  @override
-  Stream<bool> mapEventToState(counterEvent event) async* {
+  Stream<bool> mapEventToState(CounterEvent event) async* {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     switch (event) {
-      case counterEvent.add:
+      case CounterEvent.add:
         yield true;
         prefs.setBool('login', true);
         break;
-      case counterEvent.remove:
+      case CounterEvent.remove:
         yield false;
         prefs.setBool('login', false);
         break;

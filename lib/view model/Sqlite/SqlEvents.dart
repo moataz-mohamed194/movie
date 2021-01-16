@@ -1,12 +1,13 @@
-import 'package:equatable/equatable.dart';
+class SqlEvents {}
 
-class SqlEvents extends Equatable{
-  @override
-  // TODO: implement props
-  List<Object> get props => [];
+class DeleteFromFavorite extends SqlEvents {
+  final String movieId;
 
+  DeleteFromFavorite(this.movieId);
 }
-class IconEvents extends SqlEvents{
+//* created two events for the buttons for add and delete
+
+class AddToFavorit extends SqlEvents {
   final String movieId;
   final String moviePoster;
   final String movieCover;
@@ -14,12 +15,13 @@ class IconEvents extends SqlEvents{
   final String movieDate;
   final String movieName;
   final String movieOverview;
-  IconEvents(this.movieId,this.movieRate,this.movieCover,this.movieName,this.movieOverview,this.moviePoster,this.movieDate);
-  @override
-  List<Object> get props => [movieId,moviePoster,movieCover,movieRate,movieDate,movieName,movieOverview];
+  AddToFavorit(
+    this.movieId,
+    this.movieRate,
+    this.movieCover,
+    this.movieName,
+    this.movieOverview,
+    this.moviePoster,
+    this.movieDate,
+  );
 }
-class dataEvents extends SqlEvents{
-  @override
-  List<Object> get props => [];
-}
-// class IconEven extends SqlEvents{}

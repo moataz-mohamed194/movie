@@ -24,7 +24,6 @@ class TextFileLogin extends StatelessWidget {
       this.oldData});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       width: MediaQuery.of(context).size.width / 1.25,
       child: StreamBuilder<String>(

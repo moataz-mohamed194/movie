@@ -1,22 +1,31 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movie/view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
-import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
-import 'package:movie/view%20model/Movies/MovieBloc.dart';
-import 'package:movie/view%20model/Movies/MovieStates.dart';
-import 'package:movie/view%20model/utils/SharedPreferences.dart';
-import 'package:movie/view/Widgets/Moviecard.dart';
 import 'package:toast/toast.dart';
+
+import '../../view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
+import '../../view%20model/LoginByFaceBookAndGoogle/UI.dart';
+import '../../view%20model/Movies/MovieBloc.dart';
+import '../../view%20model/Movies/MovieStates.dart';
+import '../../view%20model/utils/SharedPreferences.dart';
+import '../Widgets/Moviecard.dart';
 import 'DetailsMovie.dart';
 import 'SavedMovies.dart';
 import 'TrendingMovie.dart';
 import 'login.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final SocialBloc social = SocialBloc();
+
   UIBloc cb;
   @override
   Widget build(BuildContext context) {
@@ -103,7 +112,7 @@ class Home extends StatelessWidget {
                                   onPressed: () {
                                     FirebaseAuth.instance.signOut();
                                     Constant.prefs.setBool('login', false);
-                                    cb.add(counterEvent.remove);
+                                    cb.add(CounterEvent.remove);
                                   },
                                   icon: Icon(
                                     FontAwesomeIcons.signOutAlt,
@@ -149,9 +158,9 @@ class Home extends StatelessWidget {
         alignment: Alignment.center,
         child: BlocBuilder<MovieBloc, MovieStates>(builder: (context, state) {
           if (state is PostInitialState) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Center(child: CircularProgressIndicator()));
           } else if (state is LoadingState) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: Center(child: CircularProgressIndicator()));
           } else if (state is FetchSuccess) {
             return Wrap(
               children: state.posts
@@ -170,14 +179,14 @@ class Home extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => DetailsMovie(
                                           nameMovie: item.originalTitle,
-                                      date: item.releaseDate,
-                                      description: item.overview,
-                                      imageCover: item.backdropPath,
-                                      imagePoster: item.posterPath,
-                                      rate: item.voteAverage,
+                                          date: item.releaseDate,
+                                          description: item.overview,
+                                          imageCover: item.backdropPath,
+                                          imagePoster: item.posterPath,
+                                          rate: item.voteAverage,
                                         )));
                           },
-                         movieId: item.id,
+                          movieId: item.id,
                           movieImgCover: item.backdropPath,
                           movieOverview: item.overview,
                         ),
@@ -197,8 +206,7 @@ class Home extends StatelessWidget {
   }
 
   Future<void> openLoginAlert(context) async {
-    SocialBloc social = new SocialBloc();
-    UIBloc cb = BlocProvider.of<UIBloc>(context);
+    cb = BlocProvider.of<UIBloc>(context);
     return showDialog<void>(
         context: context,
         barrierDismissible: true,
@@ -212,7 +220,7 @@ class Home extends StatelessWidget {
                     child: FlatButton(
                         onPressed: () async {
                           if (await social.handleSignIn() == true) {
-                            cb.add(counterEvent.add);
+                            cb.add(CounterEvent.add);
                             Toast.show("Login done", context,
                                 duration: Toast.LENGTH_SHORT,
                                 gravity: Toast.BOTTOM);
@@ -234,7 +242,7 @@ class Home extends StatelessWidget {
                       child: FlatButton(
                           onPressed: () async {
                             if (await social.signInFacebook() == true) {
-                              cb.add(counterEvent.add);
+                              cb.add(CounterEvent.add);
                               Navigator.pop(context);
                               Navigator.pop(context);
                               Toast.show("Login done", context,
@@ -273,5 +281,11 @@ class Home extends StatelessWidget {
             ),
           );
         });
+  }
+
+  @override
+  void dispose() {
+    cb.close();
+    super.dispose();
   }
 }
