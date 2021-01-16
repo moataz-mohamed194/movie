@@ -2,19 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie/model/Repository/MovieRepository.dart';
-import 'package:movie/view%20model/utils/SharedPreferences.dart';
-import 'package:movie/view/Screens/Home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'model/Repository/MovieRepository.dart';
+import 'model/Repository/SQLDatabase.dart';
+import 'view/Screens/Home.dart';
 import 'view model/LoginByFaceBookAndGoogle/UI.dart';
 import 'view model/Movies/MovieBloc.dart';
 import 'view model/Movies/MovieEvents.dart';
-import 'view model/Movies/MovieStates.dart';
-import 'model/Repository/SQLDatabase.dart';
 import 'view model/Sqlite/SqlBloc.dart';
-import 'view model/Sqlite/SqlEvents.dart';
-import 'view model/Sqlite/SqlStates.dart';
 import 'view model/Validation/ValidationProvidor.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'view%20model/utils/SharedPreferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -58,12 +56,11 @@ class MyApp extends StatelessWidget {
               create: (context) => UIBloc(login),
             ),
             BlocProvider<MovieBloc>(
-                create: (context) =>
-                    MovieBloc(PostInitialState(), MovieRepository())
-                      ..add(DoFetchEvents("movie/popular"))),
+                create: (context) => MovieBloc(MovieRepository())
+                  ..add(DoFetchEvents("movie/popular"))),
             BlocProvider<SqlBloc>(
-              create: (context) => SqlBloc(ButtonInitialState(), SQLDatabase())//..add(IconEven()),
-            ),
+                create: (context) => SqlBloc(SQLDatabase()) //..add(IconEven()),
+                ),
             // BlocProvider<SqlBloc2>(
             //   create: (context) => SqlBloc2( List)..add(IconEvents2()),
             // ),

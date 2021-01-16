@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
-import 'package:movie/view%20model/Validation/ValidationProvidor.dart';
-import 'package:movie/view/Widgets/buttonWidget.dart';
-import 'package:movie/view/Widgets/textfield.dart';
+
+import '../../view%20model/Validation/ValidationProvidor.dart';
+import '../Widgets/buttonWidget.dart';
+import '../Widgets/textfield.dart';
 import 'SignUp.dart';
 
 class Login extends StatelessWidget {
@@ -13,8 +12,7 @@ class Login extends StatelessWidget {
     // final UIBloc cb = BlocProvider.of<UIBloc>(context);
 
     final bloc = ValidationProvider.of(context);
-   // ValidationProvider bloc=new ValidationProvider();
-    // TODO: implement build
+    // ValidationProvider bloc=new ValidationProvider();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -44,7 +42,7 @@ class Login extends StatelessWidget {
               ),
               Container(
                 child: ButtonIconWidget(
-                  onPressed:() {
+                  onPressed: () {
                     bloc.login(context);
                   },
                   text: "Login",
