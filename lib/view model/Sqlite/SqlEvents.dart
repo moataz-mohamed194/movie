@@ -5,6 +5,7 @@ class DeleteFromFavorite extends SqlEvents {
 
   DeleteFromFavorite(this.movieId);
 }
+//* created two events for the buttons for add and delete
 
 class AddToFavorit extends SqlEvents {
   final String movieId;
