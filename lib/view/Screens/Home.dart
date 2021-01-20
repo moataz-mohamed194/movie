@@ -162,33 +162,33 @@ class _HomeState extends State<Home> {
           } else if (state is LoadingState) {
             return Center(child: Center(child: CircularProgressIndicator()));
           } else if (state is FetchSuccess) {
+            // print(state.posts);
             return Wrap(
               children: state.posts
                   .map((item) => Container(
                         width: MediaQuery.of(context).size.width / 2,
                         child: MovieCard(
                           movieImg:
-                              "http://image.tmdb.org/t/p/w500${item.posterPath}",
-                          // liked: false,
-                          movieName: item.originalTitle,
-                          movieRate: "${item.voteAverage}",
-                          releaseDate: "${item.id}",
+                              item.posterPath.toString(),
+                          movieName: item.originalTitle.toString(),
+                          movieRate: item.voteAverage.toString(),
+                          releaseDate: item.releaseDate.toString(),
                           onClick: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => DetailsMovie(
-                                          nameMovie: item.originalTitle,
-                                          date: item.releaseDate,
-                                          description: item.overview,
-                                          imageCover: item.backdropPath,
-                                          imagePoster: item.posterPath,
-                                          rate: item.voteAverage,
+                                          nameMovie: item.originalTitle.toString(),
+                                          date: item.releaseDate.toString(),
+                                          description: item.overview.toString(),
+                                          imageCover: item.backdropPath.toString(),
+                                          imagePoster: item.posterPath.toString(),
+                                          rate: item.voteAverage.toString(),
                                         )));
                           },
-                          movieId: item.id,
-                          movieImgCover: item.backdropPath,
-                          movieOverview: item.overview,
+                          movieId: item.id.toString(),
+                          movieImgCover: item.backdropPath.toString(),
+                          movieOverview: item.overview.toString(),
                         ),
                       ))
                   .toList()

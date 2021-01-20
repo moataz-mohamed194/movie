@@ -36,25 +36,27 @@ class TrendingMovie extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 2,
                               child: MovieCard(
                                 movieImg:
-                                    "http://image.tmdb.org/t/p/w500${item.posterPath}",
+                                    item.posterPath.toString(),
                                 liked: false,
-                                movieName: item.originalName,
-                                movieRate: "${item.voteAverage}",
-                                releaseDate: "${item.firstAirDate}",
+                                movieName: item.originalName.toString(),
+                                movieRate: item.voteAverage.toString(),
+                                releaseDate: item.firstAirDate.toString(),
                                 onClick: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => DetailsMovie(
-                                                nameMovie: item.originalName,
-                                                rate: item.voteAverage,
-                                                imagePoster: item.posterPath,
-                                                description: item.overview,
-                                                date: item.firstAirDate,
-                                                imageCover: item.backdropPath,
+                                                nameMovie: item.originalName.toString(),
+                                                rate: item.voteAverage.toString(),
+                                                imagePoster: item.posterPath.toString(),
+                                                description: item.overview.toString(),
+                                                date: item.firstAirDate.toString(),
+                                                imageCover: item.backdropPath.toString(),
                                               )));
                                 },
-                                movieId: item.id,
+                                movieId: item.id.toString(),
+                                movieImgCover: item.backdropPath.toString(),
+                                movieOverview: item.overview.toString(),
                               ),
                             ))
                         .toList()

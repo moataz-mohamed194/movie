@@ -5,7 +5,7 @@ class DetailsMovie extends StatelessWidget {
   final String nameMovie;
   final String imageCover;
   final String imagePoster;
-  final double rate;
+  final String rate;
   final String date;
   final String description;
 

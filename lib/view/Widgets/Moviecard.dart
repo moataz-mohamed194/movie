@@ -18,7 +18,7 @@ class MovieCard extends StatelessWidget {
   final String movieRate;
   final bool liked;
   final Function onClick;
-  final int movieId;
+  final String movieId;
 
   MovieCard({
     Key key,
@@ -33,76 +33,80 @@ class MovieCard extends StatelessWidget {
     this.movieId,
   }) : super(key: key);
 
+
   final sql = SqlBloc(SQLDatabase());
+
   @override
   Widget build(BuildContext context) {
+    sql.add(Start(movieId.toString()));
+
     return BlocBuilder<SqlBloc, SqlStates>(
       cubit: sql,
       builder: (context, state) {
         return Material(
-          // create:
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Card(
-              child: InkWell(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      movieImg,
-                      height: 250,
-                    ),
-                    Text(movieName),
-                    Text(releaseDate),
-                    Row(
+           child: Container(
+                margin: EdgeInsets.all(10),
+                child: Card(
+                  child: InkWell(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Text(movieRate),
-                              Icon(
-                                Icons.star,
-                                color: Colors.grey,
-                              )
-                            ],
-                          ),
+                        Image.network("http://image.tmdb.org/t/p/w500$movieImg",
+                          height: 250,
                         ),
-                        IconButton(
-                          icon: state is LikedButtonState
-                              ? Icon(
-                                  FontAwesomeIcons.solidHeart,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  FontAwesomeIcons.heart,
-                                  color: Colors.red,
-                                ),
-                          onPressed: () {
-                            if (state is ButtonInitialState) {
-                              sql.add(
-                                AddToFavorit(
-                                    "movieId",
-                                    "movieRate",
-                                    "movieCover",
-                                    "movieName",
-                                    "movieOverview",
-                                    "moviePoster",
-                                    "movieDate"),
-                              );
-                            } else {
-                              sql.add(DeleteFromFavorite("movieId"));
-                            }
-                          },
-                        ),
+                        Text(movieName),
+                        Text(releaseDate),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(movieRate),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                  )
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              icon: state is LikedButtonState
+                                  ? Icon(
+                                      FontAwesomeIcons.solidHeart,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(
+                                      FontAwesomeIcons.heart,
+                                      // color: Colors.red,
+                                    ),
+                              onPressed: () {
+                                if (state is ButtonInitialState) {
+                                  sql.add(
+                                    AddToFavorite(
+                                        "$movieId",
+                                        "$movieRate",
+                                        "$movieImgCover",
+                                        "$movieName",
+                                        "$movieOverview",
+                                        "$movieImg",
+                                        "$releaseDate"),
+                                  );
+                                } else {
+                                  sql.add(DeleteFromFavorite("$movieId"));
+                                }
+                              },
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
+                    ),
+                    onTap: onClick,
+                  ),
                 ),
-                onTap: onClick,
               ),
-            ),
-          ),
+          // ),
         );
+
       },
     );
   }

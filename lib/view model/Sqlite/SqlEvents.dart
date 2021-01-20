@@ -5,9 +5,22 @@ class DeleteFromFavorite extends SqlEvents {
 
   DeleteFromFavorite(this.movieId);
 }
-//* created two events for the buttons for add and delete
 
-class AddToFavorit extends SqlEvents {
+class Start extends SqlEvents {
+  final String movieId;
+
+  Start(this.movieId);
+}
+class GetSavedMovies extends SqlEvents {
+
+}
+class GetSavedMoviesAfterDelete extends SqlEvents {
+  final String movieId;
+
+  GetSavedMoviesAfterDelete(this.movieId);
+}
+
+class AddToFavorite extends SqlEvents {
   final String movieId;
   final String moviePoster;
   final String movieCover;
@@ -15,7 +28,7 @@ class AddToFavorit extends SqlEvents {
   final String movieDate;
   final String movieName;
   final String movieOverview;
-  AddToFavorit(
+  AddToFavorite(
     this.movieId,
     this.movieRate,
     this.movieCover,

@@ -2,25 +2,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SavedCard extends StatelessWidget {
-  final int id;
+  final String id;
   final String movieName;
   final String movieImage;
   final String releaseDate;
+  final String movieImgCover;
+  final String movieOverview;
+  final String movieRate;
+  final bool liked;
+  final Function onClick;
+  final Function deleteFunction;
 
-  const SavedCard(
-      {Key key, this.id, this.movieName, this.movieImage, this.releaseDate})
-      : super(key: key);
+  SavedCard({Key key,this.deleteFunction ,this.id, this.movieName, this.movieImage, this.releaseDate, this.movieImgCover, this.movieOverview, this.movieRate, this.liked, this.onClick}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 150,
+      // height: 150,
       child: InkWell(
         child: Card(
           child: Center(
             child: Row(
               children: [
-                Expanded(child: Image.network(movieImage)),
+                Expanded(child: Image.network("http://image.tmdb.org/t/p/w500$movieImage")),
                 Expanded(
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -42,14 +47,14 @@ class SavedCard extends StatelessWidget {
                       color: Colors.red,
                       size: 35,
                     ),
-                    onPressed: () {},
+                    onPressed: deleteFunction,
                   ),
                 ),
               ],
             ),
           ),
         ),
-        onTap: () {},
+        onTap: onClick,
       ),
     );
   }

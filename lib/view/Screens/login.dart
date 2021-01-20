@@ -11,7 +11,7 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     // final UIBloc cb = BlocProvider.of<UIBloc>(context);
 
-    final bloc = ValidationProvider.of(context);
+    final bloc0 = ValidationProvider.of(context);
     // ValidationProvider bloc=new ValidationProvider();
     return SafeArea(
         child: Scaffold(
@@ -23,15 +23,15 @@ class Login extends StatelessWidget {
           child: Column(
             children: [
               TextFileLogin(
-                textStream: bloc.email,
-                textChange: bloc.changeEmail,
+                textStream: bloc0.email,
+                textChange: bloc0.changeEmail,
                 hintText: "Email",
                 inputType: TextInputType.emailAddress,
                 textStyleColor: Colors.blue,
               ),
               TextFileLogin(
-                textStream: bloc.password,
-                textChange: bloc.changePassword,
+                textStream: bloc0.password,
+                textChange: bloc0.changePassword,
                 hintText: "Password",
                 inputType: TextInputType.text,
                 obscure: true,
@@ -43,7 +43,7 @@ class Login extends StatelessWidget {
               Container(
                 child: ButtonIconWidget(
                   onPressed: () {
-                    bloc.login(context);
+                    bloc0.login(context);
                   },
                   text: "Login",
                   color: Colors.blue,

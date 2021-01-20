@@ -4,25 +4,52 @@ import '../../model/Repository/SQLDatabase.dart';
 import 'SqlEvents.dart';
 import 'SqlStates.dart';
 
-//TODO: PLEASE for the god sake read the documentation
-//* https://bloclibrary.dev/#/gettingstarted
 
 class SqlBloc extends Bloc<SqlEvents, SqlStates> {
-  final SQLDatabase repo;
+  SQLDatabase repo=SQLDatabase();
   SqlBloc(this.repo) : super(ButtonInitialState());
   //* map state should return states only not booleans
 
   @override
   Stream<SqlStates> mapEventToState(SqlEvents event) async* {
     if (event is DeleteFromFavorite) {
-      //TODO: add the insert method here
-
+       await repo.delete(event.movieId);
+       await SQLDatabase().getAllMovies2();
+      print(event.movieId);
       yield ButtonInitialState();
       print(state);
-    } else {
-      //TODO: add the insert method here
+    } else if(event is AddToFavorite) {
+      print("movieId:${event.movieId},movieName:${event.movieName}");
+      await repo.insert(event.movieId,event.moviePoster,event.movieRate,event.movieDate,event.movieCover,event.movieOverview,event.movieName);
+      await SQLDatabase().getAllMovies2();
       yield LikedButtonState();
       print(state);
+    }else if(event is Start) {
+      List data2=await SQLDatabase().getAllMovies2();
+      if(data2.toString().contains(event.movieId)){
+        yield LikedButtonState();
+        print(state);
+      }else{
+        yield ButtonInitialState();
+        print(state);
+      }
+    }else if(event is GetSavedMovies) {
+     try {
+        List data = await SQLDatabase().getAllMovies();
+        yield GetSaved(data);
+        print(state);
+      }catch(e){
+       yield ErrorState(message: e.toString());
+     }
+    }
+    else if(event is GetSavedMoviesAfterDelete) {
+        await SQLDatabase().delete(event.movieId);
+
+        List data = await SQLDatabase().getAllMovies();
+        print("00000$data");
+        yield GetSaved(data);
+        print(state);
     }
   }
-}
+  }
+

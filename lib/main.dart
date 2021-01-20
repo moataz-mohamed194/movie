@@ -14,7 +14,6 @@ import 'view model/Sqlite/SqlBloc.dart';
 import 'view model/Validation/ValidationProvidor.dart';
 import 'view%20model/utils/SharedPreferences.dart';
 
-//TODO: use dependacy injection in the bloc
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -62,9 +61,6 @@ class MyApp extends StatelessWidget {
             BlocProvider<SqlBloc>(
                 create: (context) => SqlBloc(SQLDatabase()) //..add(IconEven()),
                 ),
-            // BlocProvider<SqlBloc2>(
-            //   create: (context) => SqlBloc2( List)..add(IconEvents2()),
-            // ),
           ], child: Home() //Home(),
               )),
     );
