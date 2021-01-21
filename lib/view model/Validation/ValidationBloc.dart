@@ -4,12 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/view/Screens/Home.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:toast/toast.dart';
 
 import '../../view%20model/LoginByFaceBookAndGoogle/UI.dart';
 import '../../view%20model/utils/SharedPreferences.dart';
-import '../../view/Screens/Home.dart';
+import '../../view/Screens/Menu/Last.dart';
 
 class ValidationBloc {
   final _emailController = BehaviorSubject<String>();

@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'model/Repository/MovieRepository.dart';
 import 'model/Repository/SQLDatabase.dart';
 import 'view/Screens/Home.dart';
+import 'view/Screens/Menu/Last.dart';
 import 'view model/LoginByFaceBookAndGoogle/UI.dart';
 import 'view model/Movies/MovieBloc.dart';
 import 'view model/Movies/MovieEvents.dart';

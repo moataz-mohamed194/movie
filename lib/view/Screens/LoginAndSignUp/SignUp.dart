@@ -1,41 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../view%20model/Validation/ValidationProvidor.dart';
-import '../Widgets/buttonWidget.dart';
-import '../Widgets/textfield.dart';
-import 'SignUp.dart';
+import '../../../view%20model/Validation/ValidationProvidor.dart';
+import '../../Widgets/buttonWidget.dart';
+import '../../Widgets/textfield.dart';
 
-class Login extends StatelessWidget {
+class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final UIBloc cb = BlocProvider.of<UIBloc>(context);
+    final bloc = ValidationProvider.of(context);
 
-    final bloc0 = ValidationProvider.of(context);
-    // ValidationProvider bloc=new ValidationProvider();
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Sign UP"),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               TextFileLogin(
-                textStream: bloc0.email,
-                textChange: bloc0.changeEmail,
+                hintText: "Name",
+                inputType: TextInputType.name,
+                textStream: bloc.name,
+                textChange: bloc.changeName,
+                textStyleColor: Colors.blue,
+              ),
+              TextFileLogin(
                 hintText: "Email",
+                textStream: bloc.email,
+                textChange: bloc.changeEmail,
                 inputType: TextInputType.emailAddress,
                 textStyleColor: Colors.blue,
               ),
               TextFileLogin(
-                textStream: bloc0.password,
-                textChange: bloc0.changePassword,
                 hintText: "Password",
                 inputType: TextInputType.text,
+                textStream: bloc.password,
+                textChange: bloc.changePassword,
                 obscure: true,
                 textStyleColor: Colors.blue,
+              ),
+              TextFileLogin(
+                hintText: "repeat password",
+                textStream: bloc.repeatPassword,
+                textChange: bloc.changeRepeatPassword,
+                inputType: TextInputType.text,
+                textStyleColor: Colors.blue,
+                obscure: true,
               ),
               SizedBox(
                 height: 30,
@@ -43,9 +55,9 @@ class Login extends StatelessWidget {
               Container(
                 child: ButtonIconWidget(
                   onPressed: () {
-                    bloc0.login(context);
+                    bloc.signUp(context);
                   },
-                  text: "Login",
+                  text: "Save",
                   color: Colors.blue,
                   textColor: Colors.white,
                 ),
@@ -60,8 +72,7 @@ class Login extends StatelessWidget {
                   style: TextStyle(color: Colors.blue),
                 ),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignUp()));
+                  Navigator.pop(context);
                 },
               )
             ],

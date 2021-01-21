@@ -17,10 +17,17 @@ class SocialBloc {
             'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture&access_token=$token');
         print(graphResponse.body);
         if (result.status == FacebookLoginStatus.loggedIn) {
-          final credential = FacebookAuthProvider.credential(token);
-          _auth.signInWithCredential(credential);
-          Constant.prefs.setBool('login', true);
-          return true;
+          try{
+            final credential = FacebookAuthProvider.credential(token);
+            _auth.signInWithCredential(credential).whenComplete(() {
+              Constant.prefs.setBool('login', true);
+              return true;
+            });
+            print("1111:$credential");
+          }catch(e){
+            print("yyyy:$e");
+          }
+
         }
 
         break;

@@ -17,6 +17,7 @@ class SavedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("http://image.tmdb.org/t/p/w500$movieImage");
     return Container(
       width: MediaQuery.of(context).size.width,
       // height: 150,

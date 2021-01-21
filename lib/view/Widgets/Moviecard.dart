@@ -45,7 +45,7 @@ class MovieCard extends StatelessWidget {
       builder: (context, state) {
         return Material(
            child: Container(
-                margin: EdgeInsets.all(10),
+                 margin: EdgeInsets.all(10),
                 child: Card(
                   child: InkWell(
                     child: Column(
