@@ -46,8 +46,8 @@ class HomeState extends State<Home>
               backgroundColor: drawerBackgroundColor,
               title: Row(
                 children: [
-                  InkWell(
-                    onTap: () {
+                  IconButton(
+                    onPressed: () {
                       setState(() {
                         isCollapsed = !isCollapsed;
                         isCollapsed
@@ -55,21 +55,19 @@ class HomeState extends State<Home>
                             : _animationController.reverse();
                       });
                     },
-                    child: AnimatedIcon(
+                    icon: AnimatedIcon(
                       icon: AnimatedIcons.menu_close,
                       progress: _animationController,
                       color: selectedColor,
-                      // size: 50.0,
                     ),
                   ),
                   SizedBox(
                     width: 20,
                   ),
-                  Titles[currentSelectedIndex]
+                  titles[currentSelectedIndex]
                 ],
               ),
             ),
-            //drawer: CollapsingNavigationDrawer(),
             body: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

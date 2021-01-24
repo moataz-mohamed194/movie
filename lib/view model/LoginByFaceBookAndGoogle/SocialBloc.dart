@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,7 @@ import '../../view%20model/utils/SharedPreferences.dart';
 
 class SocialBloc {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  Future<bool> signInFacebook() async {
+  Future<bool> signInFacebook(BuildContext context) async {
     FacebookLogin facebookLogin = FacebookLogin();
     final result = await facebookLogin.logIn(['email']);
     switch (result.status) {
@@ -17,17 +18,10 @@ class SocialBloc {
             'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture&access_token=$token');
         print(graphResponse.body);
         if (result.status == FacebookLoginStatus.loggedIn) {
-          try{
-            final credential = FacebookAuthProvider.credential(token);
-            _auth.signInWithCredential(credential).whenComplete(() {
-              Constant.prefs.setBool('login', true);
-              return true;
-            });
-            print("1111:$credential");
-          }catch(e){
-            print("yyyy:$e");
-          }
-
+          final credential = await FacebookAuthProvider.credential(token);
+          await _auth.signInWithCredential(credential);
+          Constant.prefs.setBool('login', true);
+          return true;
         }
 
         break;

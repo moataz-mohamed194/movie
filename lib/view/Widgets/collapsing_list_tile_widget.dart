@@ -1,14 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie/view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
-import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
-import 'package:movie/view%20model/utils/SharedPreferences.dart';
 import 'package:movie/view/model/theme.dart';
-import 'package:toast/toast.dart';
-
-import '../Screens/LoginAndSignUp/login.dart';
 
 class CollapsingListTile extends StatefulWidget {
   final String title;
@@ -41,88 +33,9 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
         Tween<double>(begin: 10, end: 0).animate(widget.animationController);
   }
 
-  UIBloc cb;
-  Future<void> openLoginAlert(context) async {
-    cb = BlocProvider.of<UIBloc>(context);
-    return showDialog<void>(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Ways to login"),
-            content: SingleChildScrollView(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: FlatButton(
-                        onPressed: () async {
-                          if (await social.handleSignIn() == true) {
-                            cb.add(CounterEvent.add);
-                            Toast.show("Login done", context,
-                                duration: Toast.LENGTH_SHORT,
-                                gravity: Toast.BOTTOM);
-                            // Navigator.pop(context);
-                            // Navigator.pop(context);
-                          }
-                        },
-                        child: Container(
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(200)),
-                            child: Image.asset(
-                              'assets/google.png',
-                            ),
-                          ),
-                        )),
-                  ),
-                  Expanded(
-                      child: FlatButton(
-                          onPressed: () async {
-                            if (await social.signInFacebook() == true) {
-                              cb.add(CounterEvent.add);
-                              // Navigator.pop(context);
-                              // Navigator.pop(context);
-                              Toast.show("Login done", context,
-                                  duration: Toast.LENGTH_SHORT,
-                                  gravity: Toast.BOTTOM);
-                            }
-                          },
-                          child: Container(
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(200)),
-                              child: Image.asset(
-                                'assets/facebook.png',
-                              ),
-                            ),
-                          ))),
-                  Expanded(
-                    child: FlatButton(
-                        onPressed: () {
-                          // FirebaseAuth.instance.signOut();
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
-                        },
-                        child: Container(
-                          child: ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(200)),
-                            child: Image.asset(
-                              'assets/plus.png',
-                            ),
-                          ),
-                        )),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
-    cb = BlocProvider.of<UIBloc>(context);
 
     return InkWell(
       onTap: widget.onTap,
@@ -141,7 +54,6 @@ class _CollapsingListTileState extends State<CollapsingListTile> {
             Icon(
               widget.icon,
               color: widget.isSelected ? Colors.blue : Colors.white30,
-              // size: 30.0,
             ),
             (widthAnimation.value <= 100) ? SizedBox(width: 20) : Container(),
             (widthAnimation.value <= 100)

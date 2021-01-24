@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +13,10 @@ class LogInListTile extends StatefulWidget {
   final AnimationController animationController;
   final bool isSelected;
 
-  LogInListTile(
-      { @required this.animationController,
-        this.isSelected = false,
-      });
+  LogInListTile({
+    @required this.animationController,
+    this.isSelected = false,
+  });
 
   @override
   _CollapsingListTileState0 createState() => _CollapsingListTileState0();
@@ -57,13 +56,12 @@ class _CollapsingListTileState0 extends State<LogInListTile> {
                                 duration: Toast.LENGTH_SHORT,
                                 gravity: Toast.BOTTOM);
                             Navigator.pop(context);
-                            // Navigator.pop(context);
                           }
                         },
                         child: Container(
                           child: ClipRRect(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(200)),
+                                BorderRadius.all(Radius.circular(200)),
                             child: Image.asset(
                               'assets/google.png',
                             ),
@@ -73,20 +71,21 @@ class _CollapsingListTileState0 extends State<LogInListTile> {
                   Expanded(
                       child: FlatButton(
                           onPressed: () async {
-                            if (await social.signInFacebook() == true) {
+                            if (await social.signInFacebook(context) == true) {
                               cb.add(CounterEvent.add);
-print("0000${await FirebaseAuth.instance.currentUser}");
-                              Navigator.pop(context);
-                              // Navigator.pop(context);
+
+                               Navigator.pop(context);
                               Toast.show("Login done", context,
                                   duration: Toast.LENGTH_SHORT,
                                   gravity: Toast.BOTTOM);
+                            }else{
+                              print("00000:${social.signInFacebook(context)}");
                             }
                           },
                           child: Container(
                             child: ClipRRect(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(200)),
+                                  BorderRadius.all(Radius.circular(200)),
                               child: Image.asset(
                                 'assets/facebook.png',
                               ),
@@ -95,14 +94,13 @@ print("0000${await FirebaseAuth.instance.currentUser}");
                   Expanded(
                     child: FlatButton(
                         onPressed: () {
-                          // FirebaseAuth.instance.signOut();
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) => Login()));
                         },
                         child: Container(
                           child: ClipRRect(
                             borderRadius:
-                            BorderRadius.all(Radius.circular(200)),
+                                BorderRadius.all(Radius.circular(200)),
                             child: Image.asset(
                               'assets/plus.png',
                             ),
@@ -123,10 +121,7 @@ print("0000${await FirebaseAuth.instance.currentUser}");
     return Container(
       width: 200,
       margin: EdgeInsets.symmetric(horizontal: 8.0),
-      // padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Wrap(
-        // crossAxisAlignment: CrossAxisAlignment.,
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           BlocBuilder<UIBloc, bool>(builder: (context, state) {
             if (state == false) {
@@ -146,8 +141,8 @@ print("0000${await FirebaseAuth.instance.currentUser}");
                       ),
                       (widthAnimation.value <= 100)
                           ? SizedBox(
-                        height: 15,
-                      )
+                              height: 15,
+                            )
                           : Container(),
                       (widthAnimation.value <= 100)
                           ? Text("Login")
@@ -163,9 +158,7 @@ print("0000${await FirebaseAuth.instance.currentUser}");
               return StreamBuilder<User>(
                   initialData: FirebaseAuth.instance.currentUser,
                   builder: (context, state0) {
-                    print("state0");
-                    print("\$$state0");
-                    print("state0");
+
                     if (state0.hasData) {
                       return Stack(
                         children: [
@@ -177,55 +170,59 @@ print("0000${await FirebaseAuth.instance.currentUser}");
                                   width: 70,
                                   height: 70,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(200)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(200)),
                                     child: state0.data.photoURL != null
                                         ? Image.network(
-                                      "${state0.data.photoURL}",
-                                    )
+                                            "${state0.data.photoURL}",
+                                          )
                                         : Image.asset(
-                                      'assets/empty.png',
-                                    ),
+                                            'assets/empty.png',
+                                          ),
                                   ),
                                 ),
                                 (widthAnimation.value <= 100)
                                     ? SizedBox(
-                                  height: 15,
-                                )
+                                        height: 15,
+                                      )
                                     : Container(),
                                 (widthAnimation.value <= 100)
                                     ? Text(
-                                  state0.data.email,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                )
+                                        state0.data.email,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      )
                                     : Container()
                               ],
                             ),
                           ),
                           (widthAnimation.value <= 100)
                               ? Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () {
-                                FirebaseAuth.instance.signOut();
-                                Constant.prefs.setBool('login', false);
-                                cb.add(CounterEvent.remove);
-                              },
-                              icon: Icon(
-                                FontAwesomeIcons.signOutAlt,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          )
+                                  top: 0,
+                                  right: 0,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      FirebaseAuth.instance.signOut();
+                                      Constant.prefs.setBool('login', false);
+                                      cb.add(CounterEvent.remove);
+                                    },
+                                    icon: Icon(
+                                      FontAwesomeIcons.signOutAlt,
+                                      size: 20,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
                               : Container(),
                         ],
                       );
                     } else {
-                      return Center(child: Text(".....${state0.hasError}:${state0.error}",style: TextStyle(color: Colors.white),));
+                      return Center(
+                          child: Text(
+                        ".....${state0.hasError}:${state0.error}",
+                        style: TextStyle(color: Colors.white),
+                      ));
                     }
                   });
             }

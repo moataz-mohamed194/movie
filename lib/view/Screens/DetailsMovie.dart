@@ -116,7 +116,6 @@ class DetailsMovie extends StatelessWidget {
                       Wrap(
                         children: [
                           Text(description,
-                              //"Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah.",
                               style: TextStyle(fontSize: 15))
                         ],
                       )

@@ -32,7 +32,7 @@ class SQLDatabase {
   Future<List> getAllMovies() async {
     final db = await database;
     var data = await db.query("movies");
-    return data.toList(); //.toList();
+    return data.toList();
   }
 
   getAllMovies2() async {
@@ -51,7 +51,6 @@ class SQLDatabase {
       String movieName) async {
     final db = await database;
     var result;
-    print("vvvvvvvvvvvvvvvvvvvvvvvvvvv");
     try {
       result = await db.rawInsert(
           "INSERT Into movies ( movieId, movieImgPoster , movieRate , movieDate , movieImgCover , movieOverview ,movieName)"
@@ -66,7 +65,7 @@ class SQLDatabase {
             movieName
           ]);
     } catch (e) {
-      print("eeeeeeeeeeee$e");
+      print("error: $e");
     }
 
     return result;

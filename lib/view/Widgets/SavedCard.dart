@@ -20,7 +20,6 @@ class SavedCard extends StatelessWidget {
     print("http://image.tmdb.org/t/p/w500$movieImage");
     return Container(
       width: MediaQuery.of(context).size.width,
-      // height: 150,
       child: InkWell(
         child: Card(
           child: Center(

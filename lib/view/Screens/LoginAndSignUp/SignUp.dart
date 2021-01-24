@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie/view/model/theme.dart';
 
 import '../../../view%20model/Validation/ValidationProvidor.dart';
 import '../../Widgets/buttonWidget.dart';
@@ -13,6 +14,8 @@ class SignUp extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
+        backgroundColor: drawerBackgroundColor,
+
         title: Text("Sign UP"),
       ),
       body: SingleChildScrollView(
@@ -68,8 +71,8 @@ class SignUp extends StatelessWidget {
               ),
               InkWell(
                 child: Text(
-                  "Sign Up",
-                  style: TextStyle(color: Colors.blue),
+                  "Login",
+                  style: TextStyle(color: drawerBackgroundColor),
                 ),
                 onTap: () {
                   Navigator.pop(context);

@@ -17,7 +17,7 @@ List<NavigationModel> navigationItems = [
   NavigationModel(title: "Trending", icon: Icons.trending_up),
 ];
 List<Widget> data = [Last(), SavedMovie(), TrendingMovie()];
-List<Widget> Titles = [
+List<Widget> titles = [
   Text(
     "Home ",
   ),

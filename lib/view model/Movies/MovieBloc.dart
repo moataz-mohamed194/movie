@@ -28,7 +28,6 @@ class MovieBloc extends Bloc<MovieEvents, MovieStates> {
             yield FetchSuccess(posts: posts);
           }
         }
-        // yield FetchSuccess(posts: posts);
       } catch (e) {
         yield ErrorState(message: e.toString());
       }

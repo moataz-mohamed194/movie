@@ -8,7 +8,6 @@ import 'SqlStates.dart';
 class SqlBloc extends Bloc<SqlEvents, SqlStates> {
   SQLDatabase repo=SQLDatabase();
   SqlBloc(this.repo) : super(ButtonInitialState());
-  //* map state should return states only not booleans
 
   @override
   Stream<SqlStates> mapEventToState(SqlEvents event) async* {

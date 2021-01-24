@@ -29,10 +29,8 @@ class SavedMovie extends StatelessWidget {
                                 return SavedCard(
                                   movieName:
                                       state.data[index]['movieName'].toString(),
-                                  //"miss peregrine",
                                   releaseDate:
                                       state.data[index]['movieDate'].toString(),
-                                  //"2016-09-28",
                                   movieImage: state.data[index]['movieImgPoster']
                                       .toString(),
                                   movieOverview: state.data[index]

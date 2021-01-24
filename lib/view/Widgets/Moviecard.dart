@@ -77,7 +77,6 @@ class MovieCard extends StatelessWidget {
                                     )
                                   : Icon(
                                       FontAwesomeIcons.heart,
-                                      // color: Colors.red,
                                     ),
                               onPressed: () {
                                 if (state is ButtonInitialState) {
@@ -104,7 +103,6 @@ class MovieCard extends StatelessWidget {
                   ),
                 ),
               ),
-          // ),
         );
 
       },

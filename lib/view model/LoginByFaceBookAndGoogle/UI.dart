@@ -11,8 +11,10 @@ class UIBloc extends Bloc<CounterEvent, bool> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     switch (event) {
       case CounterEvent.add:
-        yield true;
         prefs.setBool('login', true);
+
+
+        yield true;
         break;
       case CounterEvent.remove:
         yield false;

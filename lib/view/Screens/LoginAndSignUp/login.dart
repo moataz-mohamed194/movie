@@ -1,22 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/model/Repository/MovieRepository.dart';
+import 'package:movie/model/Repository/SQLDatabase.dart';
+import 'package:movie/view%20model/LoginByFaceBookAndGoogle/UI.dart';
+import 'package:movie/view%20model/Movies/MovieBloc.dart';
+import 'package:movie/view%20model/Movies/MovieEvents.dart';
+import 'package:movie/view%20model/Sqlite/SqlBloc.dart';
+import 'package:movie/view%20model/utils/SharedPreferences.dart';
+import 'package:movie/view/model/theme.dart';
+import 'package:toast/toast.dart';
 
 import '../../../view%20model/Validation/ValidationProvidor.dart';
 import '../../Widgets/buttonWidget.dart';
 import '../../Widgets/textfield.dart';
+import '../Home.dart';
 import 'SignUp.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final UIBloc cb = BlocProvider.of<UIBloc>(context);
-
     final bloc0 = ValidationProvider.of(context);
-    // ValidationProvider bloc=new ValidationProvider();
-    return SafeArea(
-        child: Scaffold(
+
+    return Scaffold(
       appBar: AppBar(
         title: Text("Login"),
+        backgroundColor: drawerBackgroundColor,
+
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -42,8 +52,29 @@ class Login extends StatelessWidget {
               ),
               Container(
                 child: ButtonIconWidget(
-                  onPressed: () {
-                    bloc0.login(context);
+                  onPressed: () async {
+                    if (await bloc0.login()) {
+
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (_) {
+                        return MultiBlocProvider(providers: [
+                          BlocProvider<UIBloc>(
+                            create: (context) =>
+                                UIBloc(Constant.prefs.getBool('login')),
+                          ),
+                          BlocProvider<MovieBloc>(
+                              create: (context) => MovieBloc(MovieRepository())
+                                ..add(DoFetchEvents("movie/popular"))),
+                          BlocProvider<SqlBloc>(
+                              create: (context) => SqlBloc(SQLDatabase())),
+                        ], child: Home());
+                      }), (Route<dynamic> route) => false);
+                      Toast.show("Login done", context,
+                          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                    } else {
+                      Toast.show("Falied", context,
+                          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                    }
                   },
                   text: "Login",
                   color: Colors.blue,
@@ -57,7 +88,7 @@ class Login extends StatelessWidget {
               InkWell(
                 child: Text(
                   "Sign Up",
-                  style: TextStyle(color: Colors.blue),
+                  style: TextStyle(color: drawerBackgroundColor),
                 ),
                 onTap: () {
                   Navigator.push(context,
@@ -68,6 +99,6 @@ class Login extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }

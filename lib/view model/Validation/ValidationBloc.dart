@@ -4,13 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie/model/Repository/MovieRepository.dart';
+import 'package:movie/model/Repository/SQLDatabase.dart';
+import 'package:movie/view%20model/Movies/MovieBloc.dart';
+import 'package:movie/view%20model/Movies/MovieEvents.dart';
+import 'package:movie/view%20model/Sqlite/SqlBloc.dart';
 import 'package:movie/view/Screens/Home.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 
 import '../../view%20model/LoginByFaceBookAndGoogle/UI.dart';
 import '../../view%20model/utils/SharedPreferences.dart';
-import '../../view/Screens/Menu/Last.dart';
 
 class ValidationBloc {
   final _emailController = BehaviorSubject<String>();
@@ -111,9 +116,16 @@ class ValidationBloc {
           MaterialPageRoute(builder: (_) {
             return MultiBlocProvider(providers: [
               BlocProvider<UIBloc>(
-                create: (context) => UIBloc(true),
+                create: (context) =>
+                    UIBloc(Constant.prefs.getBool('login')),
               ),
-            ], child: Home() //Home(),
+              BlocProvider<MovieBloc>(
+                  create: (context) => MovieBloc(MovieRepository())
+                    ..add(DoFetchEvents("movie/popular"))),
+              BlocProvider<SqlBloc>(
+                  create: (context) => SqlBloc(SQLDatabase())),
+
+            ], child: Home()
                 );
           }),
         );
@@ -127,25 +139,20 @@ class ValidationBloc {
         "signUp ${_nameController.value}:${_emailController.value}:${_passwordController.value}:${_repeatPasswordController.value}");
   }
 
-  login(context) async {
-    print("ddddddddddddddddddddddddddd");
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-            email: _emailController.value, password: _passwordController.value)
-        .whenComplete(() {
-      Constant.prefs.setBool('login', true);
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) {
-        return MultiBlocProvider(providers: [
-          BlocProvider<UIBloc>(
-            create: (context) => UIBloc(true),
-          ),
-        ], child: Home() //Home(),
-            );
-      }), (Route<dynamic> route) => false);
-      Toast.show("Login done", context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-
-      print(FirebaseAuth.instance.currentUser);
-    });
+  Future<bool> login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.value, password: _passwordController.value);
+      prefs.setBool('login', true);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return false;
+    }
   }
 }

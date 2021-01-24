@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'model/Repository/MovieRepository.dart';
 import 'model/Repository/SQLDatabase.dart';
 import 'view/Screens/Home.dart';
-import 'view/Screens/Menu/Last.dart';
 import 'view model/LoginByFaceBookAndGoogle/UI.dart';
 import 'view model/Movies/MovieBloc.dart';
 import 'view model/Movies/MovieEvents.dart';
@@ -54,15 +53,15 @@ class MyApp extends StatelessWidget {
           },
           home: MultiBlocProvider(providers: [
             BlocProvider<UIBloc>(
-              create: (context) => UIBloc(login),
+              create: (context) => UIBloc(Constant.prefs.getBool('login')),
             ),
             BlocProvider<MovieBloc>(
                 create: (context) => MovieBloc(MovieRepository())
                   ..add(DoFetchEvents("movie/popular"))),
             BlocProvider<SqlBloc>(
-                create: (context) => SqlBloc(SQLDatabase()) //..add(IconEven()),
+                create: (context) => SqlBloc(SQLDatabase())
                 ),
-          ], child: Home() //Home(),
+          ], child: Home()
               )),
     );
   }

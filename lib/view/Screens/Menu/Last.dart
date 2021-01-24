@@ -1,22 +1,10 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:toast/toast.dart';
-
-import '../../../view%20model/LoginByFaceBookAndGoogle/SocialBloc.dart';
-import '../../../view%20model/LoginByFaceBookAndGoogle/UI.dart';
 import '../../../view%20model/Movies/MovieBloc.dart';
 import '../../../view%20model/Movies/MovieStates.dart';
-import '../../../view%20model/utils/SharedPreferences.dart';
 import '../../Widgets/Moviecard.dart';
 import '../DetailsMovie.dart';
-import 'SavedMovies.dart';
-import 'TrendingMovie.dart';
-import '../LoginAndSignUp/login.dart';
 
 class Last extends StatefulWidget {
   @override
@@ -37,7 +25,6 @@ class _HomeState extends State<Last> {
             } else if (state is LoadingState) {
               return Center(child: Center(child: CircularProgressIndicator()));
             } else if (state is FetchSuccess) {
-              // print(state.posts);
               return Wrap(
                 children: state.posts
                     .map((item) => Container(
@@ -70,7 +57,6 @@ class _HomeState extends State<Last> {
                     .cast<Widget>(),
               );
             } else if (state is ErrorState) {
-              print(state.message.toString());
               return Center(child: Text("${state.message.toString()}"));
             } else {
               return Center(child: Text("Error"));
@@ -78,8 +64,7 @@ class _HomeState extends State<Last> {
           }),
         )),
       );
-    //   ,
-    // );
+
   }
 
 }

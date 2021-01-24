@@ -64,7 +64,6 @@ class TrendingMovie extends StatelessWidget {
                         .cast<Widget>(),
                   );
                 } else if (state is ErrorState) {
-                  print(state.message.toString());
                   return Center(child: Text("${state.message.toString()}"));
                 } else {
                   return Center(child: Text("Error"));
