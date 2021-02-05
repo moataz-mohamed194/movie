@@ -77,7 +77,6 @@ class HomeState extends State<Home>
                   child: Column(
                     children: <Widget>[
                       LogInListTile(
-                        
                         animationController: _animationController,
                       ),
                       Divider(
