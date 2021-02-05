@@ -24,20 +24,21 @@ class SQLDatabase {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute(
-        "CREATE TABLE movies(id INTEGER PRIMARY KEY AUTOINCREMENT , movieId TEXT UNIQUE, movieImgPoster TEXT, movieRate TEXT, movieDate TEXT, movieImgCover TEXT, movieOverview TEXT, movieName TEXT)",
+        "CREATE TABLE movies(id INTEGER PRIMARY KEY AUTOINCREMENT , movieId TEXT UNIQUE, movieImgPoster TEXT,user TEXT, movieRate TEXT, movieDate TEXT, movieImgCover TEXT, movieOverview TEXT, movieName TEXT)",
       );
     });
   }
 
-  Future<List> getAllMovies() async {
+  Future<List> getAllMovies(String user) async {
     final db = await database;
-    var data = await db.query("movies");
+    var data = await db.query("movies" , where: "user = ?",
+      whereArgs: [user],);
     return data.toList();
   }
 
-  getAllMovies2() async {
+  getAllMovies2(String user) async {
     final db = await database;
-    var data = await db.rawQuery('SELECT movieId FROM movies  ');
+    var data = await db.rawQuery("SELECT movieId FROM movies WHERE user='$user' ");
     return data.toList();
   }
 
@@ -48,13 +49,14 @@ class SQLDatabase {
       String movieDate,
       String movieImgCover,
       String movieOverview,
+      String user,
       String movieName) async {
     final db = await database;
     var result;
     try {
       result = await db.rawInsert(
-          "INSERT Into movies ( movieId, movieImgPoster , movieRate , movieDate , movieImgCover , movieOverview ,movieName)"
-          " VALUES ( ?,?,?,?,?,?,?)",
+          "INSERT Into movies ( movieId, movieImgPoster , movieRate , movieDate , movieImgCover , movieOverview ,movieName, user)"
+          " VALUES ( ?,?,?,?,?,?,?,?)",
           [
             movieId,
             movieImgPoster,
@@ -62,7 +64,7 @@ class SQLDatabase {
             movieDate,
             movieImgCover,
             movieOverview,
-            movieName
+            movieName,user
           ]);
     } catch (e) {
       print("error: $e");
