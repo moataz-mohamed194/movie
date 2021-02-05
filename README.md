@@ -4,13 +4,19 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+I used BLOC state management to contact between app and API to get the new and trending movies.
+used SQLite to save the favorite movie.
+any user can login by facebook or google.
 
-A few resources to get you started if this is your first Flutter project:
+## Pictures of app
+<img width="250" alt="Last Movie" src="assets/README/1.jpg">
+<img width="250" alt="Side menu" src="assets/README/2.jpg">
+<img width="250" alt="Movie saved" src="assets/README/3.jpg">
+<img width="250" alt="Trending movie" src="assets/README/4.jpg">
+<img width="250" alt="Menu of login" src="assets/README/5.jpg">
+<img width="250" alt="Login page" src="assets/README/6.jpg">
+<img width="250" alt="Sign up page" src="assets/README/7.jpg">
+<img width="250" alt="Sign up page" src="assets/README/8.jpg">
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# use App
+  - download code and run it
